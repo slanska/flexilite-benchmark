@@ -1,0 +1,22 @@
+{
+  "name": "Flexilite-Benchmark-UserApp",
+  "homepage": "https://github.com/slanska/flexilite-benchmark",
+  "authors": [
+    "slanska <slan_ska@yahoo.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "GPL-3.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "^4.12.0",
+    "requirejs": "^2.2.0",
+    "webix": "^3.3.2"
+  }
+}
