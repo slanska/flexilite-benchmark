@@ -1,7 +1,7 @@
 define([],function(){
 
 	return {
-		template:"Start page"
+		template:"Start page ###"
 	};
 	
 });

@@ -2,7 +2,6 @@ define([
     "app"
 ], function (app)
 {
-
     var header = {
         type: "header", template: app.config.name
     };

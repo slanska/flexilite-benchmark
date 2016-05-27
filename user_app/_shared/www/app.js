@@ -4,7 +4,7 @@
 
 define([
 	"libs/webix-jet-core/core",
-	"libs/webix-jet-core/plugins/menu",
+	"libs/webix-jet-core/plugins/menu"
 ], function(
 	core, menu
 ){
@@ -19,8 +19,6 @@ define([
 	});
 
 	app.use(menu);
-
-
-
+	
 	return app;
 });
