@@ -1,7 +1,6 @@
-define([],function(){
-
-	return {
-		template:"Start page ###"
-	};
-	
+define([], function ()
+{
+    return {
+        template: "Start page ###"
+    };
 });
