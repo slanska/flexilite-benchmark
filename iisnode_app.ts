@@ -2,4 +2,6 @@
  * Created by slanska on 2016-05-29.
  */
 
-import app = require('./services/index');
+///<reference path="./typings/server.d.ts"/>
+
+require('./services/index');

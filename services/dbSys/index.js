@@ -12,16 +12,16 @@
     "use strict";
     ///<reference path="../../typings/server.d.ts"/>
     var express = require('express');
-    exports.router = express.Router('/db');
+    var router = express.Router();
     /*
     GET db/open
      */
-    exports.router.get('open', function (req, res, next) {
+    router.get('open', function (req, res, next) {
     });
     /*
      GET db/recent
      */
-    exports.router.get('/recent', function (req, res, next) {
+    router.get('/recent', function (req, res, next) {
         var p = req.params.path || '';
         // var fullPath = path.join(config.rootPath, p);
         // fs.readdir(fullPath, (err, data)=>
@@ -33,5 +33,6 @@
         //     else next(err);
         // });
     });
+    return router;
 });
 //# sourceMappingURL=index.js.map

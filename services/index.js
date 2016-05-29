@@ -71,6 +71,8 @@ function onListening() {
     var bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    debug('Listening on ' + bind);
+    var s = "Listening on " + bind;
+    debug(s);
+    console.log(s);
 }
 //# sourceMappingURL=index.js.map

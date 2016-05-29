@@ -12,13 +12,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var dbSys = require('./dbSys/index');
-var fileSys = require('./fileSys/users');
+var fileSys = require('./fileSys/index');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -29,8 +29,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'user_app', '_shared', 'www')));
 // app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
 
-// app.use('/', routes);
-// app.use('/users', users);
+app.use('/', fileSys);
+app.use('/db', dbSys);
 
 // catch 404 and forward to error handler
 app.use((req:express.Request, res:express.Response, next)=>
@@ -49,7 +49,7 @@ if (app.get('env') === 'development')
     app.use((err:any, req:express.Request, res:express.Response, next)=>
     {
         res.status(err.status || 500);
-        res.render('error', {
+        res.json({
             message: err.message,
             error: err
         });
@@ -61,7 +61,7 @@ if (app.get('env') === 'development')
 app.use((err:any, req:express.Request, res:express.Response, next)=>
 {
     res.status(err.status || 500);
-    res.render('error', {
+    res.json({
         message: err.message,
         error: {}
     });

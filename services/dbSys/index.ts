@@ -9,7 +9,7 @@ import path = require('path');
 import fs = require('fs');
 import config = require('./config');
 
-export var router = express.Router('/db');
+var router = express.Router();
 
 /*
 GET db/open
@@ -34,3 +34,5 @@ router.get('/recent', (req:express.Request, res:express.Response, next)=>
     //     else next(err);
     // });
 });
+
+export = router;
