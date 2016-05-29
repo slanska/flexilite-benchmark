@@ -4,14 +4,11 @@
 
 ///<reference path="../typings/server.d.ts"/>
 
-import app = require('./app');
-
-
 /**
  * Module dependencies.
  */
 
-var app = require('./app');
+import app = require('./app');
 var debug = require('debug')('flexilite-benchmark.com:server');
 var http = require('http');
 
