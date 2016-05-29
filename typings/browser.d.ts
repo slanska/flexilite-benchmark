@@ -3,7 +3,7 @@
  */
 
 ///<reference path="./webix/webix.d.ts"/>
-///<reference path="./lodash/lodash.d.ts"/>
+///<reference path="./shared.d.ts"/>
 ///<reference path="./requirejs/require.d.ts"/>
 
 declare interface IWebixJetApp

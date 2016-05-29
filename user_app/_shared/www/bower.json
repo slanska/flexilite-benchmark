@@ -16,7 +16,9 @@
     "routie": "~0.3.2",
     "requirejs": "~2.1.18",
     "webix-jet-core": "~0.1.0",
-    "polyglot":"~0.4.3",
-    "less":"~2.5.1"
+    "polyglot": "~0.4.3",
+    "less": "~2.5.1",
+    "codemirror": "^5.15.2",
+    "moment": "^2.13.0"
   }
 }
