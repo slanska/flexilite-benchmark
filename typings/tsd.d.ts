@@ -10,3 +10,4 @@
 /// <reference path="moment/moment.d.ts" />
 /// <reference path="bluebird/bluebird.d.ts" />
 /// <reference path="qs/qs.d.ts" />
+/// <reference path="cors/cors.d.ts" />

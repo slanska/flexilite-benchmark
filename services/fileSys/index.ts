@@ -11,7 +11,6 @@ import config = require('./config');
 import qs = require('qs');
 import Promise = require('bluebird');
 import _ = require('lodash');
-import IFileStats = FileSys.IFileStats;
 
 var router = express.Router();
 
@@ -36,11 +35,9 @@ router.get('/filesys', (req:express.Request, res:express.Response, next)=>
                     {
                         if (!err)
                         {
-                            // stats.
                             resolve(stats);
                         }
                         else reject(err);
-
                     });
                 }));
             });
@@ -52,7 +49,7 @@ router.get('/filesys', (req:express.Request, res:express.Response, next)=>
                 d.files = [];
                 _.forEach(fileStats, (item:fs.Stats, ii:number)=>
                 {
-                    let fStats = {} as IFileStats;
+                    let fStats = {} as FileSys.IFileStats;
                     fStats.created = item.ctime;
                     fStats.name = fileNames[ii];
                     fStats.directoryName = p;
@@ -63,7 +60,8 @@ router.get('/filesys', (req:express.Request, res:express.Response, next)=>
                     d.files.push(fStats);
                 });
 
-                res.json(d);
+                // TODO
+                res.json(d.files);
             }).catch((err)=>
             {
                 next(err);

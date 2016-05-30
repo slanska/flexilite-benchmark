@@ -10,6 +10,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+import cors = require('cors');
 
 var dbSys = require('./dbSys/index');
 var fileSys = require('./fileSys/index');
@@ -29,6 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'user_app', '_shared', 'www')));
 // app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
 
+app.use(cors());
 app.use('/', fileSys);
 app.use('/db', dbSys);
 

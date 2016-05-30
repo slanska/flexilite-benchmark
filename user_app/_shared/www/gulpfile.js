@@ -47,7 +47,7 @@ function build_js(){
 		include: ["libs/almond/almond.js"].concat(views).concat(locales)
 	})
 	.pipe( _if(debug_export, sourcemaps.init()) )
-	.pipe(uglify())
+	// .pipe(uglify())
 	.pipe( _if(debug_export, sourcemaps.write("./")) )
 	.pipe(gulp.dest('./deploy/'));
 }

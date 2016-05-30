@@ -8,13 +8,25 @@ import express = require('express');
 import path = require('path');
 import fs = require('fs');
 import config = require('./config');
+import qs = require('qs');
+import Promise = require('bluebird');
+import _ = require('lodash');
 
 var router = express.Router();
 
 /*
-GET db/open
+ GET db/tables
+ Returns list of tables
  */
-router.get('open', (req:express.Request, res:express.Response, next)=>
+router.get('/tables', (req:express.Request, res:express.Response, next)=>
+{
+});
+
+/*
+ GET db/open
+
+ */
+router.get('/open', (req:express.Request, res:express.Response, next)=>
 {
 });
 
@@ -24,15 +36,7 @@ router.get('open', (req:express.Request, res:express.Response, next)=>
 router.get('/recent', (req:express.Request, res:express.Response, next)=>
 {
     var p = req.params.path || '';
-    // var fullPath = path.join(config.rootPath, p);
-    // fs.readdir(fullPath, (err, data)=>
-    // {
-    //     if (!err)
-    //     {
-    //         res.json(data);
-    //     }
-    //     else next(err);
-    // });
+
 });
 
 export = router;

@@ -9,12 +9,23 @@
 
 declare namespace FileSys
 {
+    interface IFileStats
+    {
+        name:string;
+        directoryName:string;
+        isDirectory: boolean;
+        created: Date;
+        lastAccessed:Date;
+        modified:Date;
+        size: number;
+    }
+
     /*
     Response for GET /filesys request
      */
     interface IFileList
     {
         path:string;
-        files:string[];
+        files:IFileStats[];
     }
 }

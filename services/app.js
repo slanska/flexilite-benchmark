@@ -6,7 +6,7 @@
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", 'express', 'path'], factory);
+        define(["require", "exports", 'express', 'path', 'cors'], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -17,6 +17,7 @@
     var logger = require('morgan');
     var cookieParser = require('cookie-parser');
     var bodyParser = require('body-parser');
+    var cors = require('cors');
     var dbSys = require('./dbSys/index');
     var fileSys = require('./fileSys/index');
     var app = express();
@@ -31,6 +32,7 @@
     app.use(cookieParser());
     app.use(express.static(path.join(__dirname, 'user_app', '_shared', 'www')));
     // app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
+    app.use(cors());
     app.use('/', fileSys);
     app.use('/db', dbSys);
     // catch 404 and forward to error handler

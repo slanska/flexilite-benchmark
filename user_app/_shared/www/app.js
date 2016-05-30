@@ -2,6 +2,15 @@
  App configuration
  */
 
+require.config({
+    // baseUrl: "",
+    paths: {
+        "lodash": "libs/lodash/lodash",
+        "moment": "libs/moment/moment"
+    },
+    waitSeconds: 15
+});
+
 define([
     "libs/webix-jet-core/core",
     "libs/webix-jet-core/plugins/menu"
