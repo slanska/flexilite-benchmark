@@ -7,7 +7,7 @@ require.config({
     paths: {
         "lodash": "libs/lodash/lodash",
         "moment": "libs/moment/moment",
-        "qs": "libs/qs/src/qs",
+        "qs": "libs/qs/dist/qs",
         "config": "config"
     },
     waitSeconds: 15

@@ -36,6 +36,7 @@
             fPath += "?" + qs.stringify({ path: path });
         webix.ajax().get(fPath).then(function (d) {
             var data = d.json();
+            tbl.clearAll();
             tbl.parse(data.files, 'json');
         });
         // tbl.load(fPath)

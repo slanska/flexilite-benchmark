@@ -36,6 +36,7 @@ function loadFiles(path:string)
     webix.ajax().get(fPath).then((d)=>
     {
         let data = d.json() as FileSys.IFileList;
+        tbl.clearAll();
         tbl.parse(data.files, 'json');
     });
     // tbl.load(fPath)
