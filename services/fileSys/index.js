@@ -47,8 +47,7 @@ router.get('/filesys', function (req, res, next) {
                     fStats.modified = item.mtime;
                     d.files.push(fStats);
                 });
-                // TODO
-                res.json(d.files);
+                res.json(d);
             }).catch(function (err) {
                 next(err);
             });

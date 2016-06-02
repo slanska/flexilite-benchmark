@@ -27,7 +27,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'user_app', '_shared', 'www')));
+app.use(express.static(path.join(__dirname, '../user_app', '_shared', 'www')));
 // app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
 
 app.use(cors());

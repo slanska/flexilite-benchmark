@@ -9,6 +9,8 @@ var ui = {view: 'form'} as webix.ui.formConfig;
 
 var app = require('app');
 import config = require('config');
+import _ = require('lodash');
+import qs = require('qs');
 
 // list of files
 var tblCfg = {view: 'datatable', id: webix.uid()} as webix.ui.datatableConfig;
@@ -29,13 +31,20 @@ function loadFiles(path:string)
     var tbl = $$(tblCfg.id) as webix.ui.datatable;
 
     var fPath = `${config.apiUrl}/filesys`;
-    tbl.load(fPath)
-        .then((d)=>
-        {
-            var dt = d.json() as FileSys.IFileList;
-            console.log(dt);
-            return dt.files;
-        });
+    if (!_.isEmpty(path))
+        fPath += `?${qs.stringify({path: path})}`;
+    webix.ajax().get(fPath).then((d)=>
+    {
+        let data = d.json() as FileSys.IFileList;
+        tbl.parse(data.files, 'json');
+    });
+    // tbl.load(fPath)
+    //     .then((d)=>
+    //     {
+    //         var dt = d.json() as FileSys.IFileList;
+    //         console.log(dt);
+    //         return dt.files;
+    //     });
 }
 
 var btnOpen = {view: 'button', id: webix.uid()} as webix.ui.buttonConfig;
@@ -43,7 +52,10 @@ btnOpen.label = 'Open';
 btnOpen.click = () =>
 {
     // TODO Use path from selected item
-    loadFiles('');
+    var tbl = $$(tblCfg.id) as webix.ui.datatable;
+    var item:any = tbl.getSelectedItem();
+
+    loadFiles((item as FileSys.IFileStats).name);
 };
 
 ui.elements = [tblCfg, btnOpen];

@@ -6,7 +6,7 @@
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", 'config'], factory);
+        define(["require", "exports", 'config', 'lodash', 'qs'], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -15,6 +15,8 @@
     var ui = { view: 'form' };
     var app = require('app');
     var config = require('config');
+    var _ = require('lodash');
+    var qs = require('qs');
     // list of files
     var tblCfg = { view: 'datatable', id: webix.uid() };
     tblCfg.url = '';
@@ -30,18 +32,27 @@
         // Otherwise, open database file
         var tbl = $$(tblCfg.id);
         var fPath = config.apiUrl + "/filesys";
-        tbl.load(fPath)
-            .then(function (d) {
-            var dt = d.json();
-            console.log(dt);
-            return dt.files;
+        if (!_.isEmpty(path))
+            fPath += "?" + qs.stringify({ path: path });
+        webix.ajax().get(fPath).then(function (d) {
+            var data = d.json();
+            tbl.parse(data.files, 'json');
         });
+        // tbl.load(fPath)
+        //     .then((d)=>
+        //     {
+        //         var dt = d.json() as FileSys.IFileList;
+        //         console.log(dt);
+        //         return dt.files;
+        //     });
     }
     var btnOpen = { view: 'button', id: webix.uid() };
     btnOpen.label = 'Open';
     btnOpen.click = function () {
         // TODO Use path from selected item
-        loadFiles('');
+        var tbl = $$(tblCfg.id);
+        var item = tbl.getSelectedItem();
+        loadFiles(item.name);
     };
     ui.elements = [tblCfg, btnOpen];
     DBOpen.$ui = ui;

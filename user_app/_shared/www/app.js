@@ -6,7 +6,9 @@ require.config({
     // baseUrl: "",
     paths: {
         "lodash": "libs/lodash/lodash",
-        "moment": "libs/moment/moment"
+        "moment": "libs/moment/moment",
+        "qs": "libs/qs/src/qs",
+        "config": "config"
     },
     waitSeconds: 15
 });

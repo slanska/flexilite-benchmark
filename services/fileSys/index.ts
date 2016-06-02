@@ -60,8 +60,8 @@ router.get('/filesys', (req:express.Request, res:express.Response, next)=>
                     d.files.push(fStats);
                 });
 
-                // TODO
-                res.json(d.files);
+                
+                res.json(d);
             }).catch((err)=>
             {
                 next(err);
