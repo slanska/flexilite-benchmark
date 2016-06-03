@@ -9,11 +9,21 @@
 
 declare namespace FileSys
 {
+    const enum FileType
+    {
+        ParentDirectory = 0,
+        Directory = 1,
+        File = 2
+    }
+
     interface IFileStats
     {
+        // File or directory name
         name:string;
+
+        // Directory name, relative to
         directoryName:string;
-        isDirectory: boolean;
+        type: FileType;
         created: Date;
         lastAccessed:Date;
         modified:Date;
@@ -27,5 +37,14 @@ declare namespace FileSys
     {
         path:string;
         files:IFileStats[];
+    }
+}
+
+declare namespace DBSys
+{
+    interface IDBFileOpen
+    {
+        dir: string;
+        fileName:string;
     }
 }

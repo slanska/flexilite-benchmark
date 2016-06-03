@@ -11,8 +11,8 @@
 })(function (require, exports) {
     "use strict";
     ///<reference path="../../../../../typings/browser.d.ts"/>
-    var DBOpen = {};
-    var ui = { view: 'form' };
+    var uiModule = {};
+    var viewCfg = { view: 'form' };
     var app = require('app');
     var config = require('config');
     var _ = require('lodash');
@@ -22,7 +22,7 @@
     tblCfg.url = '';
     tblCfg.on = {
         onAfterSelect: function () {
-            // Reload table
+            itemSelected();
         }
     };
     tblCfg.autoConfig = true;
@@ -39,27 +39,37 @@
             tbl.clearAll();
             tbl.parse(data.files, 'json');
         });
-        // tbl.load(fPath)
-        //     .then((d)=>
-        //     {
-        //         var dt = d.json() as FileSys.IFileList;
-        //         console.log(dt);
-        //         return dt.files;
-        //     });
     }
-    var btnOpen = { view: 'button', id: webix.uid() };
-    btnOpen.label = 'Open';
-    btnOpen.click = function () {
+    function openDatabaseFile(dirName, fileName) {
+        var p = { dir: dirName, fileName: fileName };
+        var pp = qs.stringify(p);
+        app.show("top/db.browse:" + window.btoa(pp));
+    }
+    function itemSelected() {
         // TODO Use path from selected item
         var tbl = $$(tblCfg.id);
         var item = tbl.getSelectedItem();
-        loadFiles(item.name);
-    };
-    ui.elements = [tblCfg, btnOpen];
-    DBOpen.$ui = ui;
-    DBOpen.$oninit = function () {
+        switch (item.type) {
+            case 1 /* Directory */:
+            case 0 /* ParentDirectory */:
+                // Navigate to another folder
+                var dir = item.directoryName;
+                var fn = item.name;
+                if (!_.isEmpty(dir))
+                    fn = dir + '/' + fn;
+                loadFiles(fn);
+                break;
+            case 2 /* File */:
+                // Open database
+                openDatabaseFile(item.directoryName, item.name);
+                break;
+        }
+    }
+    viewCfg.elements = [tblCfg];
+    uiModule.$ui = viewCfg;
+    uiModule.$oninit = function () {
         loadFiles('');
     };
-    return DBOpen;
+    return uiModule;
 });
 //# sourceMappingURL=open.js.map

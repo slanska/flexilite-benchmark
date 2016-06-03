@@ -21,12 +21,26 @@ declare interface IWebixJetApp
 
     callEvent(eventName:string, params: any[]);
     trigger(eventName:string, params: any[]);
+
+    /*
+
+     */
+    show(viewModule: string);
 }
 
 declare interface IWebixJetScope
 {
     show(url:string);
     on(instance:any, eventName:string, handler:Function);
+    $layout: boolean;
+    fullname:string;
+    index:number;
+    module: IWebixJetModule;
+    name:string;
+    parent:IWebixJetScope;
+    root: any; // TODO result
+    sub(ui, name:string, stack);
+    ui(module:IWebixJetModule, container);
 }
 
 /*
@@ -36,7 +50,7 @@ declare interface IWebixJetModule
 {
     $ui:webix.ui.baseviewConfig;
     $oninit?:(view:webix.ui.baseview, $scope:IWebixJetScope)=>void;
-    $onurlchange?:(config:webix.ui.baseviewConfig, url, $scope:IWebixJetScope)=>void;
+    $onurlchange?:(config:any, url, $scope:IWebixJetScope)=>void;
     $ondestroy?:()=>void;
 
     /*
@@ -47,4 +61,6 @@ declare interface IWebixJetModule
     $windows?: webix.ui.baseviewConfig[];
 
     $on?: {[eventName:string]:Function};
+
+
 }

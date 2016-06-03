@@ -4,10 +4,10 @@
 
 ///<reference path="../../../../../typings/browser.d.ts"/>
 
-var DBOpen = {} as IWebixJetModule;
-var ui = {view: 'form'} as webix.ui.formConfig;
+var uiModule = {} as IWebixJetModule;
+var viewCfg = {view: 'form'} as webix.ui.formConfig;
 
-var app = require('app');
+var app = require('app') as IWebixJetApp;
 import config = require('config');
 import _ = require('lodash');
 import qs = require('qs');
@@ -18,7 +18,7 @@ tblCfg.url = '';
 tblCfg.on = {
     onAfterSelect: ()=>
     {
-        // Reload table
+        itemSelected();
     }
 };
 tblCfg.autoConfig = true;
@@ -39,31 +39,46 @@ function loadFiles(path:string)
         tbl.clearAll();
         tbl.parse(data.files, 'json');
     });
-    // tbl.load(fPath)
-    //     .then((d)=>
-    //     {
-    //         var dt = d.json() as FileSys.IFileList;
-    //         console.log(dt);
-    //         return dt.files;
-    //     });
 }
 
-var btnOpen = {view: 'button', id: webix.uid()} as webix.ui.buttonConfig;
-btnOpen.label = 'Open';
-btnOpen.click = () =>
+function openDatabaseFile(dirName: string, fileName:string)
+{
+    var p:DBSys.IDBFileOpen = {dir: dirName, fileName: fileName};
+    var pp = qs.stringify(p);
+    app.show(`top/db.browse:${window.btoa(pp)}`);
+}
+
+function itemSelected()
 {
     // TODO Use path from selected item
     var tbl = $$(tblCfg.id) as webix.ui.datatable;
-    var item:any = tbl.getSelectedItem();
+    var item:FileSys.IFileStats = tbl.getSelectedItem() as any;
 
-    loadFiles((item as FileSys.IFileStats).name);
-};
+    switch (item.type)
+    {
+        case FileSys.FileType.Directory:
+        case FileSys.FileType.ParentDirectory:
+            // Navigate to another folder
+            var dir = item.directoryName;
+            var fn = item.name;
+            if (!_.isEmpty(dir))
+                fn = dir + '/' + fn;
+            loadFiles(fn);
+            break;
 
-ui.elements = [tblCfg, btnOpen];
+        case FileSys.FileType.File:
+            // Open database
+            openDatabaseFile(item.directoryName, item.name);
+            break;
+    }
+}
 
-DBOpen.$ui = ui;
-DBOpen.$oninit = () =>
+viewCfg.elements = [tblCfg];
+
+uiModule.$ui = viewCfg;
+uiModule.$oninit = () =>
 {
     loadFiles('');
 };
-export  = DBOpen;
+
+export  = uiModule;

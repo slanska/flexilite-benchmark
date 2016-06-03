@@ -47,20 +47,30 @@ router.get('/filesys', (req:express.Request, res:express.Response, next)=>
                 var d = {} as FileSys.IFileList;
                 d.path = p;
                 d.files = [];
+                if (!_.isEmpty(p))
+                {
+                    let fStats = {} as FileSys.IFileStats;
+                    fStats.type = FileSys.FileType.ParentDirectory;
+                    fStats.name = '..';
+                    fStats.directoryName = path.join(p, '..');
+                    d.files.push(fStats);
+                }
+
                 _.forEach(fileStats, (item:fs.Stats, ii:number)=>
                 {
                     let fStats = {} as FileSys.IFileStats;
                     fStats.created = item.ctime;
                     fStats.name = fileNames[ii];
                     fStats.directoryName = p;
-                    fStats.isDirectory = item.isDirectory();
+                    if (item.isDirectory())
+                        fStats.type = FileSys.FileType.Directory;
+                    else fStats.type = FileSys.FileType.File;
                     fStats.size = item.size;
                     fStats.lastAccessed = item.atime;
                     fStats.modified = item.mtime;
                     d.files.push(fStats);
                 });
 
-                
                 res.json(d);
             }).catch((err)=>
             {
