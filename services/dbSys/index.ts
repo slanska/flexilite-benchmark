@@ -11,6 +11,7 @@ import config = require('./config');
 import qs = require('qs');
 import Promise = require('bluebird');
 import _ = require('lodash');
+import sqlite = require('sqlite3');
 
 var router = express.Router();
 
@@ -20,6 +21,23 @@ var router = express.Router();
  */
 router.get('/tables', (req:express.Request, res:express.Response, next)=>
 {
+    try
+    {
+        var d = __dirname;
+        console.log(d);
+        var q = req.query as DBSys.IDBFileOpen;
+        var fn = path.join('/', q.dir, q.fileName);
+        var db = new sqlite.Database(fn, sqlite.OPEN_READWRITE);
+        db.all(`select * from sqlite_master`, (err, rows)=>
+        {
+            if (!err)
+                res.json(rows);
+        });
+    }
+    catch (err)
+    {
+        console.log(err);
+    }
 });
 
 /*

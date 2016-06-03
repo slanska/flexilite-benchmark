@@ -8,7 +8,7 @@ var uiModule = {} as IWebixJetModule;
 var viewCfg = {view: 'form'} as webix.ui.formConfig;
 
 var app = require('app') as IWebixJetApp;
-import config = require('config');
+import app_cfg = require('config');
 import _ = require('lodash');
 import qs = require('qs');
 
@@ -33,8 +33,17 @@ uiModule.$oninit = () =>
 
 uiModule.$onurlchange = (config, url, scope)=>
 {
-    var d = qs.parse(window.atob(config[0])) as DBSys.IDBFileOpen;
-    webix.alert(`${d.dir} . ${d.fileName}`, null);
+    if (_.isArray(config))
+    {
+        var db = window.atob(config[0]);
+        var u = `${app_cfg.apiUrl}/db/tables?${db}`;
+        webix.ajax().get(u).then((d)=>
+        {
+            var data = d.json();
+            let tbl = $$(tblCfg.id) as webix.ui.datatable;
+            tbl.parse(data, 'json');
+        });
+    }
 };
 
 export  = uiModule;

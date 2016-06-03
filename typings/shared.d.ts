@@ -23,15 +23,15 @@ declare namespace FileSys
 
         // Directory name, relative to
         directoryName:string;
-        type: FileType;
-        created: Date;
+        type:FileType;
+        created:Date;
         lastAccessed:Date;
         modified:Date;
-        size: number;
+        size:number;
     }
 
     /*
-    Response for GET /filesys request
+     Response for GET /filesys request
      */
     interface IFileList
     {
@@ -44,7 +44,26 @@ declare namespace DBSys
 {
     interface IDBFileOpen
     {
-        dir: string;
+        dir:string;
         fileName:string;
+    }
+
+    interface IDBTableOpen extends IDBFileOpen
+    {
+        tableName:string;
+    }
+
+    const enum DBTableType
+    {
+        EAV = 0,
+        Regular = 1,
+        View = 2,
+        System = 3
+    }
+
+    interface IDBTableInfo
+    {
+        name:string;
+        type: DBTableType;
     }
 }
