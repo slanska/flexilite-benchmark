@@ -1,5 +1,5 @@
 * Add Flexilite from GitHub (_DONE_)
-* View structure
+* View structure (_DONE_)
     - app.js
     - views
         - db
@@ -30,3 +30,5 @@
     - Alter property
     - Create property
 * SQL tab
+* Test load using ab (Apache Benchmark)
+    - single url, random scripts to run

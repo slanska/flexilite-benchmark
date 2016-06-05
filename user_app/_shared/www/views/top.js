@@ -11,8 +11,8 @@ define([
     menu.select = true;
     menu.template = '<span class="webix_icon fa-#icon#"></span> #value# ';
     menu.data = [
-        { value: "New Database", id: "db:new", href: "#!/db.create", icon: "envelope-o" },
-        { value: "Open Database", id: "db:open", href: "#!/db.start", icon: "briefcase" }
+        { value: "New Database", id: "db:new", href: "#!/top/db.create", icon: "envelope-o" },
+        { value: "Open Database", id: "db:open", href: "#!/top/db.open", icon: "briefcase" }
     ];
     var ui = {
         type: "line", rows: [

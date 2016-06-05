@@ -97,7 +97,7 @@ function onListening()
     var bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    var s = `Listening on ${bind}`;
+    var s = `Listening on ${bind}, pid=${process.pid}`;
     debug(s);
     console.log(s);
 }

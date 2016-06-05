@@ -9,3 +9,9 @@
 ///<reference path="./cors/cors.d.ts"/>
 ///<reference path="./express-serve-static-core/express-serve-static-core.d.ts"/>
 ///<reference path="./serve-static/serve-static.d.ts"/>
+
+declare const enum SQLITE_OPEN_FLAGS
+{
+    SHARED_CACHE = 0x00020000,
+    WAL = 0x00080000
+}
