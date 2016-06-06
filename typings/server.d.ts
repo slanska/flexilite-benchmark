@@ -15,3 +15,12 @@ declare const enum SQLITE_OPEN_FLAGS
     SHARED_CACHE = 0x00020000,
     WAL = 0x00080000
 }
+
+/*
+ Extend Function prototype to allow sync calls
+ */
+interface Function
+{
+    sync(thisArg, ...args):any;
+    sync<T>(thisArg, ...args):T;
+}

@@ -32,21 +32,27 @@ import helpers= require('../../models/helpers');
 var tblCfg = {view: 'list', id: 'db.browse:list'} as webix.ui.listConfig;
 tblCfg.url = '';
 tblCfg.select = true;
-tblCfg.template = `#name#`;
+tblCfg.template = `#Name#`;
 tblCfg.on = {
     onAfterSelect: ()=>
     {
-        //itemSelected();
+        var tbl = $$(tblCfg.id) as webix.ui.list;
+        var item = tbl.getSelectedItem(false) as {Name:string};
+        if ($scope)
+        {
+            $scope.show('db.open/db.data');
+        }
+
     }
 };
 
-tblCfg.gravity = 0.3;
+tblCfg.gravity = 0.4;
 tblCfg.select = 'row';
 
 var resizerCfg = {view: 'resizer', id: 'db.browse:resizer'} as webix.ui.resizerConfig;
 var tabsCfg = {view: 'tabview', id: 'db.browse:tabs'} as webix.ui.tabviewConfig;
 tabsCfg.cells = [
-    {header: 'Data', body: {}},
+    {header: 'Data', body: {$subview: true}},
     {header: 'SQL', body: {}},
     {header: 'Schema', body: {}},
     {header: 'Refactoring', body: {}}
@@ -54,9 +60,11 @@ tabsCfg.cells = [
 
 viewCfg.cols = [tblCfg, resizerCfg, tabsCfg];
 
+var $scope:IWebixJetScope = null;
 uiModule.$ui = viewCfg;
-uiModule.$oninit = (view:webix.ui.baseview, $scope:IWebixJetScope) =>
+uiModule.$oninit = (view:webix.ui.baseview, $thisScope:IWebixJetScope) =>
 {
+    $scope = $thisScope;
     //loadFiles('');
 };
 

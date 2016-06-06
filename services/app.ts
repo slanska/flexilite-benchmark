@@ -11,6 +11,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 import cors = require('cors');
+var Sync = require('syncho');
 
 var dbSys = require('./dbSys/index');
 var fileSys = require('./fileSys/index');
@@ -31,6 +32,8 @@ app.use(express.static(path.join(__dirname, '../user_app', '_shared', 'www')));
 // app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
 
 app.use(cors());
+app.use(Sync.middleware());
+
 app.use('/', fileSys);
 app.use('/db', dbSys);
 

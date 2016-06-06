@@ -15,57 +15,28 @@ import sqlite3 = require('sqlite3');
 
 var router = express.Router();
 
-/*
- GET db/tables
- Returns list of tables
- */
 router.get('/list', (req:express.Request, res:express.Response, next)=>
 {
     try
     {
-        var d = __dirname;
-
         var q = req.query as DBSys.IDBFileOpen;
         var fn = path.join(config.dbPath, q.dir, q.fileName);
 
         var db:sqlite3.Database = null;
         db = new sqlite3.Database(fn, sqlite3.OPEN_READWRITE
             | SQLITE_OPEN_FLAGS.SHARED_CACHE | SQLITE_OPEN_FLAGS.WAL
-            ,
-            (err)=>
-            {
+        );
 
-            });
+        (db as any).loadExtension.sync(db, config.flexiliteLibPath);
 
-        db.serialize();
+        var ofs = Math.floor(Math.random() * 100000.0);
+        var rows = db.all.sync(db, `select c.*, (select [Value] from [.names] n where n.NameID = c.NameID limit 1) as Name from [.classes] c;`);
+        res.json(rows);
 
-        (db as any).loadExtension(config.flexiliteLibPath, (err:Error)=>
-        {
-            if (err)
-                throw err;
-        });
+        // Remember selected db in recent list
+        addFileToRecent(fn);
 
-        // db.all(`select * from [trips] limit 1;`, (err, rr) =>
-        // {
-        //     if (err)
-        //         throw err;
-        // });
-
-        var ofs = Math.floor(Math.random() * 10000.0);
-        db.all(`select * from [trips] limit 100 offset ${ofs};`, (err, rows)=>
-            // db.all(`select * from sqlite_master where type in ('table', 'view');`, (err, rows)=>
-        {
-            if (!err)
-                res.json(rows);
-
-            // Remember selected db in recent list
-            addFileToRecent(fn);
-        });
-        db.close((err:Error)=>
-        {
-            if (err)
-                throw err;
-        });
+        db.close.sync(db);
     }
     catch (err)
     {
@@ -74,6 +45,7 @@ router.get('/list', (req:express.Request, res:express.Response, next)=>
         console.log(err);
     }
 });
+
 
 /*
  GET db/open
