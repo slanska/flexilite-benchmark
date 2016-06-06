@@ -25,7 +25,7 @@ define([
         name: "Flexilite Benchmark",
         version: "0.1.0",
         debug: true,
-        start: "/top/start"
+        start: "/top/db.open"
     });
 
     app.use(menu);

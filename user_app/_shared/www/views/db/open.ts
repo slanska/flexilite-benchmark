@@ -4,6 +4,11 @@
 
 ///<reference path="../../../../../typings/browser.d.ts"/>
 
+/*
+ Webix Jet module. 2 panels. Left: file browser
+ Right: list of recently opened files
+ */
+
 var uiModule = {} as IWebixJetModule;
 var viewCfg = {view: 'form'} as webix.ui.formConfig;
 
@@ -11,9 +16,10 @@ var app = require('app') as IWebixJetApp;
 import config = require('config');
 import _ = require('lodash');
 import qs = require('qs');
+import helpers = require('../../models/helpers');
 
 // list of files
-var tblCfg = {view: 'datatable', id: webix.uid()} as webix.ui.datatableConfig;
+var tblCfg = {view: 'datatable', id: helpers.uid(app, 'list')} as webix.ui.datatableConfig;
 tblCfg.url = '';
 tblCfg.on = {
     onAfterSelect: ()=>
@@ -41,7 +47,7 @@ function loadFiles(path:string)
     });
 }
 
-function openDatabaseFile(dirName: string, fileName:string)
+function openDatabaseFile(dirName:string, fileName:string)
 {
     var p:DBSys.IDBFileOpen = {dir: dirName, fileName: fileName};
     var pp = qs.stringify(p);

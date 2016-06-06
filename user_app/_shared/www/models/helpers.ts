@@ -4,19 +4,39 @@
 
 ///<reference path="../../../../typings/browser.d.ts"/>
 
+import _ = require('lodash');
 
 /*
  Generates ID for webix component in the format parent_module_name:component_id.
  This approach: 1) provides uniqueness of IDs across all components, 2) creates well-known IDs (good for automated testing, for example)
  */
-export function uid($scope:IWebixJetScope, id:string):string
+export function uid(app:IWebixJetApp, id:string):string
 {
-    var result = id;
-    var p = $scope;
-    while (p)
+    var result = '';
+    if (app && app.path)
     {
-        result = `${p.name}:${result}`;
-        p = p.parent;
+        _.forEach(app.path, (p)=>
+        {
+            if (result !== '')
+                result += `:${p.page}`;
+            else result += p.page;
+        });
     }
+    result += `:${id}`;
     return result;
 }
+
+/*
+
+ */
+export function encodeUrlParam()
+{
+}
+
+/*
+
+ */
+export function decodeUrlParam()
+{
+}
+

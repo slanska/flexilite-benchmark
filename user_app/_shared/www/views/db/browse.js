@@ -6,7 +6,7 @@
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", 'config', 'lodash'], factory);
+        define(["require", "exports", 'config', 'lodash', '../../models/helpers'], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -30,8 +30,9 @@
     var app = require('app');
     var app_cfg = require('config');
     var _ = require('lodash');
+    var helpers = require('../../models/helpers');
     // list of files
-    var tblCfg = { view: 'list', id: 'db.browse:list' };
+    var tblCfg = { view: 'list', id: helpers.uid(app, 'list') };
     tblCfg.url = '';
     tblCfg.select = true;
     tblCfg.template = "#Name#";
@@ -46,8 +47,8 @@
     };
     tblCfg.gravity = 0.4;
     tblCfg.select = 'row';
-    var resizerCfg = { view: 'resizer', id: 'db.browse:resizer' };
-    var tabsCfg = { view: 'tabview', id: 'db.browse:tabs' };
+    var resizerCfg = { view: 'resizer', id: helpers.uid(app, 'resizer') };
+    var tabsCfg = { view: 'tabview', id: helpers.uid(app, 'tabs') };
     tabsCfg.cells = [
         { header: 'Data', body: { $subview: true } },
         { header: 'SQL', body: {} },

@@ -1,12 +1,20 @@
 ///<reference path="../../../../typings/browser.d.ts"/>
-define([
-    "app"
-], function (app) {
+(function (factory) {
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        var v = factory(require, exports); if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === 'function' && define.amd) {
+        define(["require", "exports", '../models/helpers'], factory);
+    }
+})(function (require, exports) {
+    "use strict";
+    var app = require('../app');
+    var helpers = require('../models/helpers');
     var header = {
         type: "header", template: app.config.name
     };
     var menu = { view: "menu" };
-    menu.id = "top:menu";
+    menu.id = helpers.uid(app, "menu");
     menu.layout = 'x';
     menu.select = true;
     menu.template = '<span class="webix_icon fa-#icon#"></span> #value# ';
@@ -31,7 +39,7 @@ define([
             }
         ]
     };
-    return {
+    exports.module = {
         $ui: ui,
         $menu: "top:menu"
     };

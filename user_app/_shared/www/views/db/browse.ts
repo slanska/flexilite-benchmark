@@ -29,7 +29,7 @@ import qs = require('qs');
 import helpers= require('../../models/helpers');
 
 // list of files
-var tblCfg = {view: 'list', id: 'db.browse:list'} as webix.ui.listConfig;
+var tblCfg = {view: 'list', id: helpers.uid(app, 'list')} as webix.ui.listConfig;
 tblCfg.url = '';
 tblCfg.select = true;
 tblCfg.template = `#Name#`;
@@ -49,8 +49,8 @@ tblCfg.on = {
 tblCfg.gravity = 0.4;
 tblCfg.select = 'row';
 
-var resizerCfg = {view: 'resizer', id: 'db.browse:resizer'} as webix.ui.resizerConfig;
-var tabsCfg = {view: 'tabview', id: 'db.browse:tabs'} as webix.ui.tabviewConfig;
+var resizerCfg = {view: 'resizer', id: helpers.uid(app, 'resizer')} as webix.ui.resizerConfig;
+var tabsCfg = {view: 'tabview', id: helpers.uid(app, 'tabs')} as webix.ui.tabviewConfig;
 tabsCfg.cells = [
     {header: 'Data', body: {$subview: true}},
     {header: 'SQL', body: {}},
@@ -68,7 +68,7 @@ uiModule.$oninit = (view:webix.ui.baseview, $thisScope:IWebixJetScope) =>
     //loadFiles('');
 };
 
-uiModule.$onurlchange = (config, url, scope)=>
+uiModule.$onurlchange = (config, url, scope:IWebixJetScope)=>
 {
     var v;
 
@@ -89,7 +89,6 @@ uiModule.$onurlchange = (config, url, scope)=>
         let tbl = $$(tblCfg.id) as webix.ui.list;
         tbl.parse(data, 'json');
     });
-
 };
 
 export  = uiModule;

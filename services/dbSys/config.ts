@@ -4,7 +4,7 @@
 
 var config = {
     dataPath: 'data',
-    dbPath: '/',
+    dbPath: '/Users/ruslanskorynin/flexilite/tests/data',
     flexiliteLibPath: '/Users/ruslanskorynin/flexilite/sqlite-extensions/bin/libsqlite_extensions.dylib'
 };
 export = config;

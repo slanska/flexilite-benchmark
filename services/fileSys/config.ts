@@ -3,7 +3,7 @@
  */
 
 var config = {
-    rootPath: '/'
+    rootPath: '/Users/ruslanskorynin/flexilite/tests/data'
 };
 
 export = config;

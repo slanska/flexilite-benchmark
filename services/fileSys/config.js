@@ -11,7 +11,7 @@
 })(function (require, exports) {
     "use strict";
     var config = {
-        rootPath: '/'
+        rootPath: '/Users/ruslanskorynin/flexilite/tests/data'
     };
     return config;
 });

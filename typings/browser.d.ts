@@ -8,37 +8,42 @@
 
 declare interface IWebixJetApp
 {
-    config: {
-        id: string,
-        name: string,
-        version: string,
-        debug: boolean,
-        start: string
+    config:{
+        id:string,
+        name:string,
+        version:string,
+        debug:boolean,
+        start:string
     };
 
-    attachEvent(eventName:string, handler: Function);
-    on(eventName:string, handler: Function);
+    attachEvent(eventName:string, handler:Function);
+    on(eventName:string, handler:Function);
 
-    callEvent(eventName:string, params: any[]);
-    trigger(eventName:string, params: any[]);
+    callEvent(eventName:string, params:any[]);
+    trigger(eventName:string, params:any[]);
 
     /*
 
      */
-    show(viewModule: string);
+    show(viewModule:string);
+
+    /*
+     Current route path
+     */
+    path:{page:string, params:any[]}[]
 }
 
 declare interface IWebixJetScope
 {
     show(url:string);
     on(instance:any, eventName:string, handler:Function);
-    $layout: boolean;
+    $layout:boolean;
     fullname:string;
     index:number;
-    module: IWebixJetModule;
+    module:IWebixJetModule;
     name:string;
     parent:IWebixJetScope;
-    root: any; // TODO result
+    root:any; // TODO result
     sub(ui, name:string, stack);
     ui(module:IWebixJetModule, container);
 }
@@ -58,9 +63,9 @@ declare interface IWebixJetModule
      */
     $menu?:string;
 
-    $windows?: webix.ui.baseviewConfig[];
+    $windows?:webix.ui.baseviewConfig[];
 
-    $on?: {[eventName:string]:Function};
+    $on?:{[eventName:string]:Function};
 
 
 }
