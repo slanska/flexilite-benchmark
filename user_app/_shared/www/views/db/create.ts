@@ -36,6 +36,9 @@ namespace DB
 
     var btnOK = {view: 'button', id: helpers.uid(app, 'ok')} as webix.ui.buttonConfig;
     btnOK.label = 'OK';
+    // btnOK.width = 250;
+
+    btnOK.align = 'right';
 
     frm.elements = [dbFilePath, cmbPageSize, btnOK];
 

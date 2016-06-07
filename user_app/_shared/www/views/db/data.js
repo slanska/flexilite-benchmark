@@ -6,7 +6,7 @@
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports"], factory);
+        define(["require", "exports", '../../models/helpers'], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -14,7 +14,8 @@
     var uiModule = {};
     var viewCfg = { view: 'layout', id: 'db.browse:form' };
     var app = require('app');
-    uiModule.$ui = { view: 'template', template: 'data', id: 'db.open:db.data:main' };
+    var helpers = require('../../models/helpers');
+    uiModule.$ui = { view: 'template', template: 'data', id: helpers.uid(app, 'main') };
     return uiModule;
 });
 //# sourceMappingURL=data.js.map

@@ -39,6 +39,8 @@
         cmbPageSize.value = '4096';
         var btnOK = { view: 'button', id: helpers.uid(app, 'ok') };
         btnOK.label = 'OK';
+        // btnOK.width = 250;
+        btnOK.align = 'right';
         frm.elements = [dbFilePath, cmbPageSize, btnOK];
         DB.Create.$ui = frm;
     })(DB || (DB = {}));

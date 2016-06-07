@@ -13,6 +13,6 @@ import _ = require('lodash');
 import qs = require('qs');
 import helpers= require('../../models/helpers');
 
-uiModule.$ui = {view: 'template', template: 'data', id: 'db.open:db.data:main'} as webix.ui.baseviewConfig;
+uiModule.$ui = {view: 'template', template: 'data', id: helpers.uid(app, 'main')} as webix.ui.baseviewConfig;
 
 export = uiModule;

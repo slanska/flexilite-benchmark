@@ -6,7 +6,7 @@
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", 'config', 'lodash', '../../models/helpers'], factory);
+        define(["require", "exports", 'config', 'lodash', '../../models/helpers', './refactoring'], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -31,6 +31,7 @@
     var app_cfg = require('config');
     var _ = require('lodash');
     var helpers = require('../../models/helpers');
+    var refactoring = require('./refactoring');
     // list of files
     var tblCfg = { view: 'list', id: helpers.uid(app, 'list') };
     tblCfg.url = '';
@@ -41,7 +42,7 @@
             var tbl = $$(tblCfg.id);
             var item = tbl.getSelectedItem(false);
             if ($scope) {
-                $scope.show('db.open/db.data');
+                $scope.show('./db.data');
             }
         }
     };
@@ -53,7 +54,7 @@
         { header: 'Data', body: { $subview: true } },
         { header: 'SQL', body: {} },
         { header: 'Schema', body: {} },
-        { header: 'Refactoring', body: {} }
+        { header: 'Refactoring', body: refactoring }
     ];
     viewCfg.cols = [tblCfg, resizerCfg, tabsCfg];
     var $scope = null;
@@ -75,6 +76,7 @@
         webix.ajax().get(u).then(function (d) {
             var data = d.json();
             var tbl = $$(tblCfg.id);
+            tbl.clearAll();
             tbl.parse(data, 'json');
         });
     };

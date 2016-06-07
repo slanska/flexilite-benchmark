@@ -35,8 +35,10 @@ var ui = {
     ]
 };
 
-export var module:IWebixJetModule = {
+var module:IWebixJetModule = {
     $ui: ui,
     $menu: menu.id
 };
+
+export = module;
 

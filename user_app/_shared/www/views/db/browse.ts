@@ -27,6 +27,7 @@ import app_cfg = require('config');
 import _ = require('lodash');
 import qs = require('qs');
 import helpers= require('../../models/helpers');
+import refactoring= require('./refactoring');
 
 // list of files
 var tblCfg = {view: 'list', id: helpers.uid(app, 'list')} as webix.ui.listConfig;
@@ -40,7 +41,7 @@ tblCfg.on = {
         var item = tbl.getSelectedItem(false) as {Name:string};
         if ($scope)
         {
-            $scope.show('db.open/db.data');
+            $scope.show('./db.data');
         }
 
     }
@@ -55,7 +56,7 @@ tabsCfg.cells = [
     {header: 'Data', body: {$subview: true}},
     {header: 'SQL', body: {}},
     {header: 'Schema', body: {}},
-    {header: 'Refactoring', body: {}}
+    {header: 'Refactoring', body: refactoring}
 ];
 
 viewCfg.cols = [tblCfg, resizerCfg, tabsCfg];
@@ -87,6 +88,7 @@ uiModule.$onurlchange = (config, url, scope:IWebixJetScope)=>
     {
         var data = d.json();
         let tbl = $$(tblCfg.id) as webix.ui.list;
+        tbl.clearAll();
         tbl.parse(data, 'json');
     });
 };
