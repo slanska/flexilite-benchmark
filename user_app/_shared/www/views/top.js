@@ -41,7 +41,7 @@
     };
     exports.module = {
         $ui: ui,
-        $menu: "top:menu"
+        $menu: menu.id
     };
 });
 //# sourceMappingURL=top.js.map

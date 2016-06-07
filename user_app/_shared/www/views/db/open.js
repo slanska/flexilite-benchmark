@@ -15,13 +15,13 @@
      Webix Jet module. 2 panels. Left: file browser
      Right: list of recently opened files
      */
-    var uiModule = {};
-    var viewCfg = { view: 'form' };
     var app = require('app');
     var config = require('config');
     var _ = require('lodash');
     var qs = require('qs');
     var helpers = require('../../models/helpers');
+    var uiModule = {};
+    var viewCfg = { view: 'form' };
     // list of files
     var tblCfg = { view: 'datatable', id: helpers.uid(app, 'list') };
     tblCfg.url = '';

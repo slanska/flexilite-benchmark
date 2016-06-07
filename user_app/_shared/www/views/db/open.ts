@@ -9,14 +9,16 @@
  Right: list of recently opened files
  */
 
-var uiModule = {} as IWebixJetModule;
-var viewCfg = {view: 'form'} as webix.ui.formConfig;
 
 var app = require('app') as IWebixJetApp;
 import config = require('config');
 import _ = require('lodash');
 import qs = require('qs');
 import helpers = require('../../models/helpers');
+
+var uiModule = {} as IWebixJetModule;
+var viewCfg = {view: 'form'} as webix.ui.formConfig;
+
 
 // list of files
 var tblCfg = {view: 'datatable', id: helpers.uid(app, 'list')} as webix.ui.datatableConfig;

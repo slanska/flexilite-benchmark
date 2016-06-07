@@ -37,6 +37,6 @@ var ui = {
 
 export var module:IWebixJetModule = {
     $ui: ui,
-    $menu: "top:menu"
+    $menu: menu.id
 };
 
