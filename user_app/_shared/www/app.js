@@ -19,6 +19,8 @@ define([
 ], function (core, menu)
 {
 
+    webix.ui.fullScreen();
+
     //configuration
     var app = core.create({
         id: "Flexilite-Benchmark",

@@ -26,8 +26,11 @@
     (function (DB) {
         DB.Create = {};
         var frm = { view: 'form', id: helpers.uid(app, 'form') };
+        frm.gravity = 2;
+        frm.elementsConfig = { labelWidth: 150 };
         var dbFilePath = { view: 'text', id: helpers.uid(app, 'dbPath') };
         dbFilePath.label = 'Database File Path:';
+        // dbFilePath.labelWidth = 200;
         var cmbPageSize = { view: 'combo', id: helpers.uid(app, 'pagesz') };
         cmbPageSize.label = 'Page Size';
         cmbPageSize.options = [
@@ -41,8 +44,8 @@
         btnOK.label = 'OK';
         // btnOK.width = 250;
         btnOK.align = 'right';
-        frm.elements = [dbFilePath, cmbPageSize, btnOK];
-        DB.Create.$ui = frm;
+        frm.elements = [dbFilePath, cmbPageSize, btnOK,];
+        DB.Create.$ui = { rows: [{}, { view: 'layout', gravity: 2, cols: [{}, frm, {}] }, {}] };
     })(DB || (DB = {}));
     return DB.Create;
 });
