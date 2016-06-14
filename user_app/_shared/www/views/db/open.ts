@@ -89,4 +89,9 @@ uiModule.$oninit = () =>
     loadFiles('');
 };
 
+uiModule.$onurlchange = (config, url, scope:IWebixJetScope) =>
+{
+    loadFiles('');
+};
+
 export  = uiModule;

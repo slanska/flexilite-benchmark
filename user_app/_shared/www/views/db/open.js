@@ -75,6 +75,9 @@
     uiModule.$oninit = function () {
         loadFiles('');
     };
+    uiModule.$onurlchange = function (config, url, scope) {
+        loadFiles('');
+    };
     return uiModule;
 });
 //# sourceMappingURL=open.js.map

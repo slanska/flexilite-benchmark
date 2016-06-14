@@ -6,7 +6,13 @@
 
 /*
  This UI module is a hub for database management.
- It has 2 panels: left-side panel displays list of tables. Selecting table in this list loads table data in the right panel.
+ It has 2 panels: left-side panel displays list of tables.
+ Selecting table in this list loads table data in the right panel.
+ This panel has:
+ 1) [+ Add table] button
+ 2) Auto-incremental search
+ 3) list of (filtered) Flexilite tables
+
  Right panel is tab control with the following tabs:
  - Data: table records
  - SQL: run arbitrary SQL
@@ -20,7 +26,7 @@
  */
 
 var uiModule = {} as IWebixJetModule;
-var viewCfg = {view: 'layout', id: 'db.browse:form'} as webix.ui.formConfig;
+var viewCfg = {view: 'layout', id: 'db.browse:form'} as webix.ui.layoutConfig;
 
 var app = require('app') as IWebixJetApp;
 import app_cfg = require('config');
@@ -41,7 +47,8 @@ tblCfg.on = {
         var item = tbl.getSelectedItem(false) as {Name:string};
         if ($scope)
         {
-            $scope.show('./db.data');
+            var url = helpers.encodeUrlParam({table: item.Name});
+            $scope.show(`./db.data:${url}`);
         }
 
     }
@@ -59,7 +66,11 @@ tabsCfg.cells = [
     {header: 'Refactoring', body: refactoring}
 ];
 
-viewCfg.cols = [tblCfg, resizerCfg, tabsCfg];
+var toolBar = {view: 'toolbar', id: helpers.uid(app, 'toolBar')} as webix.ui.toolbarConfig;
+toolBar.elements = [];
+toolBar.height = 40;
+
+viewCfg.rows = [toolBar, {cols: [tblCfg, resizerCfg, tabsCfg]}];
 
 var $scope:IWebixJetScope = null;
 uiModule.$ui = viewCfg;
@@ -71,26 +82,26 @@ uiModule.$oninit = (view:webix.ui.baseview, $thisScope:IWebixJetScope) =>
 
 uiModule.$onurlchange = (config, url, scope:IWebixJetScope)=>
 {
-    var v;
-
-    if (_.isArray(config))
+    if (_.isArray(url) && url.length > 0 && url[0].page === 'db.data')
     {
-        v = config[0];
+        var v = helpers.getParamFromUrl(url[0].params);
+        if (v)
+        {
+            var tbl_args = helpers.decodeUrlParam(v);
+        }
     }
     else
     {
-        v = Object.keys(config)[0];
+        var db = helpers.decodeUrlParam(config);
+        var u = `${app_cfg.apiUrl}/db/list?${qs.stringify(db)}`;
+        webix.ajax().get(u).then((d)=>
+        {
+            var data = d.json();
+            let tbl = $$(tblCfg.id) as webix.ui.list;
+            tbl.clearAll();
+            tbl.parse(data, 'json');
+        });
     }
-
-    var db = window.atob(v);
-    var u = `${app_cfg.apiUrl}/db/list?${db}`;
-    webix.ajax().get(u).then((d)=>
-    {
-        var data = d.json();
-        let tbl = $$(tblCfg.id) as webix.ui.list;
-        tbl.clearAll();
-        tbl.parse(data, 'json');
-    });
 };
 
 export  = uiModule;

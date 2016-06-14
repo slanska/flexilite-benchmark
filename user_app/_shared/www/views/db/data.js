@@ -11,11 +11,14 @@
 })(function (require, exports) {
     "use strict";
     ///<reference path="../../../../../typings/browser.d.ts"/>
-    var uiModule = {};
-    var viewCfg = { view: 'layout', id: 'db.browse:form' };
+    var viewModel = {};
+    var viewCfg = { view: 'layout', id: helpers.uid(app, 'main'), template: 'data' };
     var app = require('app');
     var helpers = require('../../models/helpers');
-    uiModule.$ui = { view: 'template', template: 'data', id: helpers.uid(app, 'main') };
-    return uiModule;
+    viewModel.$ui = viewCfg;
+    viewModel.$onurlchange = function (config, url, $scope) {
+        //
+    };
+    return viewModel;
 });
 //# sourceMappingURL=data.js.map
