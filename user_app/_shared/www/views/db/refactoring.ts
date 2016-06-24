@@ -58,9 +58,11 @@ var listCfg = {view: 'unitlist', id: helpers.uid(app, 'action-list')} as webix.u
 listCfg.uniteBy = (obj:IRefactorActionDef)=>
 {
     return obj.group;
-    // return `<div><h6>${obj.group}</h6></div>`;
 };
-listCfg.template = `<div class="webix-strong">  #title#</div>`;
+
+listCfg.template = `<div class="flex_tmp"> 
+    <div class="item"> <div class="text">#title#</div>
+    </div></div>`;
 listCfg.data = items;
 
 uiModule.$ui = listCfg;

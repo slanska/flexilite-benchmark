@@ -113,3 +113,9 @@
 .status_good {
     color: #ddd;
 }
+
+.flex_tmp .item .text {
+    width: 100%;
+    font-size: 18px;
+    text-align: left;
+}

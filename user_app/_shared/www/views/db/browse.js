@@ -31,14 +31,14 @@
      - Database Info (including memory usage and database handle)
     
      */
-    var uiModule = {};
-    var viewCfg = { view: 'layout', id: 'db.browse:form' };
     var app = require('app');
     var app_cfg = require('config');
     var _ = require('lodash');
     var qs = require('qs');
     var helpers = require('../../models/helpers');
     var refactoring = require('./refactoring');
+    var uiModule = {};
+    var viewCfg = { view: 'layout', id: helpers.uid(app, 'form') };
     // list of files
     var tblCfg = { view: 'list', id: helpers.uid(app, 'list') };
     tblCfg.url = '';
@@ -59,7 +59,7 @@
     var resizerCfg = { view: 'resizer', id: helpers.uid(app, 'resizer') };
     var tabsCfg = { view: 'tabview', id: helpers.uid(app, 'tabs') };
     tabsCfg.cells = [
-        { header: 'Data', body: { $subview: true } },
+        { header: 'Data', body: {} },
         { header: 'SQL', body: {} },
         { header: 'Schema', body: {} },
         { header: 'Refactoring', body: refactoring }
@@ -72,7 +72,6 @@
     uiModule.$ui = viewCfg;
     uiModule.$oninit = function (view, $thisScope) {
         $scope = $thisScope;
-        //loadFiles('');
     };
     uiModule.$onurlchange = function (config, url, scope) {
         if (_.isArray(url) && url.length > 0 && url[0].page === 'db.data') {

@@ -4,20 +4,19 @@
 
 ///<reference path="../../../../../typings/browser.d.ts"/>
 
-var viewModel = {} as IWebixJetModule;
-var viewCfg = {view: 'layout', id: helpers.uid(app, 'main'), template: 'data'} as webix.ui.formConfig;
-
 var app = require('app') as IWebixJetApp;
 import app_cfg = require('config');
 import _ = require('lodash');
 import qs = require('qs');
 import helpers= require('../../models/helpers');
 
+var viewModel = {} as IWebixJetModule;
+var viewCfg = {view: 'layout', id: helpers.uid(app, 'form'), template: 'data'} as webix.ui.formConfig;
 viewModel.$ui = viewCfg;
 
 viewModel.$onurlchange = (config:any, url, $scope:IWebixJetScope)=>
 {
-//
+    webix.alert('data', null);
 };
 
 export = viewModel;

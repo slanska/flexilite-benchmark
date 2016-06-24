@@ -25,15 +25,15 @@
 
  */
 
-var uiModule = {} as IWebixJetModule;
-var viewCfg = {view: 'layout', id: 'db.browse:form'} as webix.ui.layoutConfig;
-
 var app = require('app') as IWebixJetApp;
 import app_cfg = require('config');
 import _ = require('lodash');
 import qs = require('qs');
 import helpers= require('../../models/helpers');
 import refactoring= require('./refactoring');
+
+var uiModule = {} as IWebixJetModule;
+var viewCfg = {view: 'layout', id: helpers.uid(app, 'form')} as webix.ui.layoutConfig;
 
 // list of files
 var tblCfg = {view: 'list', id: helpers.uid(app, 'list')} as webix.ui.listConfig;
@@ -60,7 +60,7 @@ tblCfg.select = 'row';
 var resizerCfg = {view: 'resizer', id: helpers.uid(app, 'resizer')} as webix.ui.resizerConfig;
 var tabsCfg = {view: 'tabview', id: helpers.uid(app, 'tabs')} as webix.ui.tabviewConfig;
 tabsCfg.cells = [
-    {header: 'Data', body: {$subview: true}},
+    {header: 'Data', body: {}},
     {header: 'SQL', body: {}},
     {header: 'Schema', body: {}},
     {header: 'Refactoring', body: refactoring}
@@ -77,7 +77,7 @@ uiModule.$ui = viewCfg;
 uiModule.$oninit = (view:webix.ui.baseview, $thisScope:IWebixJetScope) =>
 {
     $scope = $thisScope;
-    //loadFiles('');
+
 };
 
 uiModule.$onurlchange = (config, url, scope:IWebixJetScope)=>

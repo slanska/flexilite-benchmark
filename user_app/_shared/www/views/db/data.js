@@ -11,13 +11,13 @@
 })(function (require, exports) {
     "use strict";
     ///<reference path="../../../../../typings/browser.d.ts"/>
-    var viewModel = {};
-    var viewCfg = { view: 'layout', id: helpers.uid(app, 'main'), template: 'data' };
     var app = require('app');
     var helpers = require('../../models/helpers');
+    var viewModel = {};
+    var viewCfg = { view: 'layout', id: helpers.uid(app, 'form'), template: 'data' };
     viewModel.$ui = viewCfg;
     viewModel.$onurlchange = function (config, url, $scope) {
-        //
+        webix.alert('data', null);
     };
     return viewModel;
 });
