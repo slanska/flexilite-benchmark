@@ -7,6 +7,7 @@
 ///<reference path="./bluebird/bluebird.d.ts"/>
 ///<reference path="./qs/qs.d.ts"/>
 ///<reference path="./backbone/backbone.d.ts"/>
+///<reference path="../user_app/_shared/www/libs/fsmrouter/lib/FSMRouter.d.ts"/>
 
 declare namespace FileSys
 {
