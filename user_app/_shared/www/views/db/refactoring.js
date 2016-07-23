@@ -12,8 +12,7 @@
     "use strict";
     ///<reference path="../../../../../typings/browser.d.ts"/>
     /*
-     Webix Jet module. 2 panels. Left: file browser
-     Right: list of recently opened files
+     Webix Jet module.
      */
     var app = require('app');
     var helpers = require('../../models/helpers');
@@ -49,6 +48,7 @@
     listCfg.uniteBy = function (obj) {
         return obj.group;
     };
+    // TODO Use bootstrap for items
     listCfg.template = "<div class=\"flex_tmp\"> \n    <div class=\"item\"> <div class=\"text\">#title#</div>\n    </div></div>";
     listCfg.data = items;
     uiModule.$ui = listCfg;

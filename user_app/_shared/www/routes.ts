@@ -2,31 +2,34 @@
  * Created by slanska on 2016-06-25.
  */
 
-///<reference path="../../../typings/browser.d.ts"/>
-
 import FSMRouter = require('fsmrouter');
+import WebixApp = require('libs/fsmrouter/lib/webixRouter');
 
-function loadWebixModule(path?:string):FSMCallback
-{
-    var result:FSMCallback = (req:fsmRequest, next?:FSMCallback):any=>
-    {
-        var pp = new Promise((resolve, reject) =>
-        {
-            var modulePath = FSMRouter.join('views', path);
-            require([modulePath], (m:IWebixJetModule)=>
-            {
-                var ui = webix.ui(m.$ui);
+console.log(WebixApp);
 
-                if (m.$oninit)
-                    m.$oninit(ui, null);
-
-                resolve(true);
-            });
-        });
-        return pp;
-    };
-    return result;
-}
+// function loadWebixModule(path?:string):FSMCallback
+// {
+//     var result:FSMCallback = (req:fsmRequest, next?:FSMCallback):any=>
+//     {
+//         var pp = new Promise((resolve, reject) =>
+//         {
+//             var modulePath = FSMRouter.join('views', path);
+//             require([modulePath], (m:IWebixJetModule)=>
+//             {
+//                 var ui = webix.ui(m.$ui);
+//
+//                 if (m.$oninit)
+//                     m.$oninit(ui, null);
+//
+//                 // if (m.$)
+//
+//                 resolve(true);
+//             });
+//         });
+//         return pp;
+//     };
+//     return result;
+// }
 
 function switchTab(tabID?:string):FSMCallback
 {
@@ -35,17 +38,17 @@ function switchTab(tabID?:string):FSMCallback
 
     };
     return result;
-
 }
 
-var dataRoute = FSMRouter.add('data', loadWebixModule('db/start'));
-dataRoute.add('open', loadWebixModule('db/open'));
-dataRoute.add('create', loadWebixModule('db/create'));
-var browseRoute = dataRoute.add('browse/:dbPath', loadWebixModule('db/browse'));
-var tableRoute = browseRoute.add('table/:tableName', loadWebixModule());
+var dataRoute = FSMRouter.add({pattern: 'db', name: 'db/index'});
+dataRoute.add({pattern: 'open', name: '../db/start'});
+dataRoute.add({pattern: 'create', name: '../db/create'});
+var browseRoute = dataRoute.add({pattern: 'browse', name: '../db/browse'});
+var tableRoute = browseRoute.add({pattern: 'table/:tableName', name: '../db/table'});
+
 tableRoute.add('design', switchTab());
 tableRoute.add('refactoring', switchTab());
-tableRoute.add('data', switchTab());
-// browseRoute.add('tabledesign', switchTab());
+tableRoute.add('data/:tableName', switchTab());
 
+// TODO ???
 export = FSMRouter;

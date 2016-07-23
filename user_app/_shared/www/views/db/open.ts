@@ -6,11 +6,11 @@
 
 /*
  Webix Jet module. 2 panels. Left: file browser
- Right: list of recently opened files
+ Right: list of recently opened databases
  */
 
-
 var app = require('app') as IWebixJetApp;
+var WebixApp = require('libs/fsmrouter/lib/webixRouter') as IWebixJetApp;
 import config = require('config');
 import _ = require('lodash');
 import qs = require('qs');
@@ -18,7 +18,9 @@ import helpers = require('../../models/helpers');
 
 var uiModule = {} as IWebixJetModule;
 var viewCfg = {view: 'form'} as webix.ui.formConfig;
+var layoutCfg = {rows: [viewCfg]};
 
+// viewCfg.autoheight = false;
 
 // list of files
 var tblCfg = {view: 'datatable', id: helpers.uid(app, 'list')} as webix.ui.datatableConfig;
@@ -52,8 +54,7 @@ function loadFiles(path:string)
 function openDatabaseFile(dirName:string, fileName:string)
 {
     var p:DBSys.IDBFileOpen = {dir: dirName, fileName: fileName};
-    var pp = qs.stringify(p);
-    app.show(`top/db.browse:${window.btoa(pp)}`);
+    WebixApp.show(`browse`, p);
 }
 
 function itemSelected()
@@ -83,13 +84,8 @@ function itemSelected()
 
 viewCfg.elements = [tblCfg];
 
-uiModule.$ui = viewCfg;
+uiModule.$ui = layoutCfg;
 uiModule.$oninit = () =>
-{
-    loadFiles('');
-};
-
-uiModule.$onurlchange = (config, url, scope:IWebixJetScope) =>
 {
     loadFiles('');
 };

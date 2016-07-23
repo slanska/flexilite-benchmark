@@ -5,6 +5,10 @@
 ///<reference path="../../../../../typings/browser.d.ts"/>
 
 var DBRecent = {} as IWebixJetModule;
-var ui = {view: 'form'} as webix.ui.formConfig;
+var form = {view: 'form'} as webix.ui.formConfig;
+form.elements = [{view: 'button', label: 'Select'}];
+
+form.autoheight = false;
+var ui = {rows: [form]};
 DBRecent.$ui = ui;
 export  = DBRecent;

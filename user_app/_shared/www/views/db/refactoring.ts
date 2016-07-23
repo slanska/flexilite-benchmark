@@ -6,8 +6,7 @@
 
 
 /*
- Webix Jet module. 2 panels. Left: file browser
- Right: list of recently opened files
+ Webix Jet module. 
  */
 
 var app = require('app') as IWebixJetApp;
@@ -60,6 +59,7 @@ listCfg.uniteBy = (obj:IRefactorActionDef)=>
     return obj.group;
 };
 
+// TODO Use bootstrap for items
 listCfg.template = `<div class="flex_tmp"> 
     <div class="item"> <div class="text">#title#</div>
     </div></div>`;

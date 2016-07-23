@@ -13,15 +13,18 @@
     ///<reference path="../../../../../typings/browser.d.ts"/>
     /*
      Webix Jet module. 2 panels. Left: file browser
-     Right: list of recently opened files
+     Right: list of recently opened databases
      */
     var app = require('app');
+    var WebixApp = require('libs/fsmrouter/lib/webixRouter');
     var config = require('config');
     var _ = require('lodash');
     var qs = require('qs');
     var helpers = require('../../models/helpers');
     var uiModule = {};
     var viewCfg = { view: 'form' };
+    var layoutCfg = { rows: [viewCfg] };
+    // viewCfg.autoheight = false;
     // list of files
     var tblCfg = { view: 'datatable', id: helpers.uid(app, 'list') };
     tblCfg.url = '';
@@ -47,8 +50,7 @@
     }
     function openDatabaseFile(dirName, fileName) {
         var p = { dir: dirName, fileName: fileName };
-        var pp = qs.stringify(p);
-        app.show("top/db.browse:" + window.btoa(pp));
+        WebixApp.show("browse", p);
     }
     function itemSelected() {
         // TODO Use path from selected item
@@ -71,11 +73,8 @@
         }
     }
     viewCfg.elements = [tblCfg];
-    uiModule.$ui = viewCfg;
+    uiModule.$ui = layoutCfg;
     uiModule.$oninit = function () {
-        loadFiles('');
-    };
-    uiModule.$onurlchange = function (config, url, scope) {
         loadFiles('');
     };
     return uiModule;

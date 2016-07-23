@@ -21,6 +21,7 @@
     var DBHome = {};
     var ui = { view: 'layout' };
     ui.cols = [open, recent];
+    ui.height = 500;
     DBHome.$ui = ui;
     return DBHome;
 });

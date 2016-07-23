@@ -25,7 +25,7 @@ declare interface IWebixJetApp
     /*
 
      */
-    show(viewModule:string);
+    show(url:string, query?:any);
 
     /*
      Current route path
@@ -54,15 +54,20 @@ declare interface IWebixJetUrlParam
     params:any;
 }
 
+declare type IWebixInitCallback = (view:webix.ui.baseview, $scope:IWebixJetScope)=>void;
+declare type IWebixUrlChangeCallback = (config:any, url:IWebixJetUrlParam, $scope:IWebixJetScope)=>void;
+declare type IWebixDestroyCallback = ()=>void;
+declare type IWebixEventMap = {[eventName:string]:Function};
+
 /*
  Declares contract for webix-jet viewmodule
  */
 declare interface IWebixJetModule
 {
     $ui:webix.ui.baseviewConfig;
-    $oninit?:(view:webix.ui.baseview, $scope:IWebixJetScope)=>void;
-    $onurlchange?:(config:any, url:IWebixJetUrlParam, $scope:IWebixJetScope)=>void;
-    $ondestroy?:()=>void;
+    $oninit?:IWebixInitCallback;
+    $onurlchange?:IWebixUrlChangeCallback;
+    $ondestroy?:IWebixDestroyCallback;
 
     /*
      Id of menu object to associate with
@@ -71,7 +76,5 @@ declare interface IWebixJetModule
 
     $windows?:webix.ui.baseviewConfig[];
 
-    $on?:{[eventName:string]:Function};
-
-
+    $on?:IWebixEventMap;
 }

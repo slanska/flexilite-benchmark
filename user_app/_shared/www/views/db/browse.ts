@@ -34,6 +34,7 @@ import refactoring= require('./refactoring');
 
 var uiModule = {} as IWebixJetModule;
 var viewCfg = {view: 'layout', id: helpers.uid(app, 'form')} as webix.ui.layoutConfig;
+viewCfg.height = 500; // TODO Needed?
 
 // list of files
 var tblCfg = {view: 'list', id: helpers.uid(app, 'list')} as webix.ui.listConfig;
@@ -45,12 +46,7 @@ tblCfg.on = {
     {
         var tbl = $$(tblCfg.id) as webix.ui.list;
         var item = tbl.getSelectedItem(false) as {Name:string};
-        if ($scope)
-        {
-            var url = helpers.encodeUrlParam({table: item.Name});
-            $scope.show(`./db.data:${url}`);
-        }
-
+        app.show(`./data/${item}`);
     }
 };
 
@@ -72,36 +68,23 @@ toolBar.height = 40;
 
 viewCfg.rows = [toolBar, {cols: [tblCfg, resizerCfg, tabsCfg]}];
 
-var $scope:IWebixJetScope = null;
+// var $scope:IWebixJetScope = null;
 uiModule.$ui = viewCfg;
 uiModule.$oninit = (view:webix.ui.baseview, $thisScope:IWebixJetScope) =>
 {
-    $scope = $thisScope;
 
 };
 
-uiModule.$onurlchange = (config, url, scope:IWebixJetScope)=>
+uiModule.$onurlchange = (config, query, scope:IWebixJetScope)=>
 {
-    if (_.isArray(url) && url.length > 0 && url[0].page === 'db.data')
+    var u = `${app_cfg.apiUrl}/db/list?${qs.stringify(query)}`;
+    webix.ajax().get(u).then((d)=>
     {
-        var v = helpers.getParamFromUrl(url[0].params);
-        if (v)
-        {
-            var tbl_args = helpers.decodeUrlParam(v);
-        }
-    }
-    else
-    {
-        var db = helpers.decodeUrlParam(config);
-        var u = `${app_cfg.apiUrl}/db/list?${qs.stringify(db)}`;
-        webix.ajax().get(u).then((d)=>
-        {
-            var data = d.json();
-            let tbl = $$(tblCfg.id) as webix.ui.list;
-            tbl.clearAll();
-            tbl.parse(data, 'json');
-        });
-    }
+        var data = d.json();
+        let tbl = $$(tblCfg.id) as webix.ui.list;
+        tbl.clearAll();
+        tbl.parse(data, 'json');
+    });
 };
 
 export  = uiModule;

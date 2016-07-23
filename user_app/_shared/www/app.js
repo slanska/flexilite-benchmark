@@ -19,26 +19,18 @@ require.config({
 });
 
 define([
-    // "libs/webix-jet-core/core",
-    // "libs/webix-jet-core/plugins/menu",
-    "./routes"
-], function (routes)
-{
-    // For mobile devices
-    webix.ui.fullScreen();
+        'qs',
+        'fsmrouter',
+        'promiz'],
+    (qs, FSMRouter, Promise)=>
+    {
+        require(['libs/fsmrouter/lib/webixRouter', "./routes"], (app, routes) =>
+        {
+            // For mobile devices
+            webix.ui.fullScreen();
 
-    routes.start('data/open');
+            FSMRouter.start();
+        });
 
-    //configuration
-    // var app = core.create({
-    //     id: "Flexilite-Benchmark",
-    //     name: "Flexilite Benchmark",
-    //     version: "0.1.0",
-    //     debug: true,
-    //     start: "/top/db.open"
-    // });
-    //
-    // app.use(menu);
-    //
-    // return app;
-});
+        return FSMRouter;
+    });

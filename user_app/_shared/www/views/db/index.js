@@ -1,5 +1,5 @@
 /**
- * Created by slanska on 2016-05-29.
+ * Created by slanska on 2016-07-23.
  */
 (function (factory) {
     if (typeof module === 'object' && typeof module.exports === 'object') {
@@ -11,12 +11,11 @@
 })(function (require, exports) {
     "use strict";
     ///<reference path="../../../../../typings/browser.d.ts"/>
-    var DBRecent = {};
-    var form = { view: 'form' };
-    form.elements = [{ view: 'button', label: 'Select' }];
-    form.autoheight = false;
-    var ui = { rows: [form] };
-    DBRecent.$ui = ui;
-    return DBRecent;
+    var DBHome = {};
+    var ui = { view: 'layout' };
+    // TODO Menu
+    ui.rows = [{ gravity: 0.1 }, { $subview: true }, { gravity: 0.1 }];
+    DBHome.$ui = ui;
+    return DBHome;
 });
-//# sourceMappingURL=recent.js.map
+//# sourceMappingURL=index.js.map

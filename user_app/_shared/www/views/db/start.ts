@@ -17,5 +17,6 @@ import recent = require( './recent');
 var DBHome = {} as IWebixJetModule;
 var ui = {view: 'layout'} as webix.ui.layoutConfig;
 ui.cols = [open, recent];
+ui.height = 500;
 DBHome.$ui = ui;
 export = DBHome;
