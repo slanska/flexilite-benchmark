@@ -72,7 +72,7 @@ viewCfg.rows = [toolBar, {cols: [tblCfg, resizerCfg, tabsCfg]}];
 uiModule.$ui = viewCfg;
 uiModule.$oninit = (view:webix.ui.baseview, $thisScope:IWebixJetScope) =>
 {
-
+    // Register routes for tabs switching
 };
 
 uiModule.$onurlchange = (config, query, scope:IWebixJetScope)=>

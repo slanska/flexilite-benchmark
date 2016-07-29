@@ -68,6 +68,7 @@
     // var $scope:IWebixJetScope = null;
     uiModule.$ui = viewCfg;
     uiModule.$oninit = function (view, $thisScope) {
+        // Register routes for tabs switching
     };
     uiModule.$onurlchange = function (config, query, scope) {
         var u = app_cfg.apiUrl + "/db/list?" + qs.stringify(query);
