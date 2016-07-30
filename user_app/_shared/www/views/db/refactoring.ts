@@ -4,7 +4,6 @@
 
 ///<reference path="../../../../../typings/browser.d.ts"/>
 
-
 /*
  Webix Jet module.
  */
@@ -16,7 +15,6 @@ import qs = require('qs');
 import helpers = require('../../models/helpers');
 
 var uiModule = {} as IWebixJetModule;
-
 
 declare type RefactorDef = {title:string, description?:string, icon?:string,
     actions:{title:string, description?:string, action:string}[]}[];
@@ -66,33 +64,6 @@ var items:RefactorDef = [
     }
 ];
 
-// List of refactoring actions
-// var items:IRefactorActionDef[] = [
-//     {
-//         group: 'Class',
-//         title: 'Create class',
-//         action: '',
-//         icon: ''
-//     },
-//     {
-//         group: 'Class',
-//         title: 'Alter class',
-//         action: '',
-//         icon: ''
-//     },
-//     {
-//         group: 'Class',
-//         title: 'Drop class',
-//         action: '',
-//         icon: ''
-//     },
-//     {
-//         group: 'Property',
-//         title: 'Create property',
-//         action: '',
-//         icon: ''
-//     }
-// ];
 
 /*
 
@@ -122,7 +93,7 @@ var items:RefactorDef = [
 
  */
 
-var refactoringDiv = _.template(`<div class="bs-component">
+var refactoringDiv = _.template(`<div class="container"> <div class="bs-component">
 <% _.forEach(actionGroups, function(ag) {%>
 <div class="panel panel-primary col-lg-4 col-sm-12 col-md-6"> 
 <div class="panel-heading">
@@ -140,13 +111,14 @@ var refactoringDiv = _.template(`<div class="bs-component">
               </div>
               <% }); %>
               </div>
+              </div>
               `)({actionGroups: items});
 
-var listCfg = {view: 'unitlist', id: helpers.uid(app, 'action-list')} as webix.ui.unitlistConfig;
-listCfg.uniteBy = (obj:IRefactorActionDef)=>
-{
-    return obj.group;
-};
+// var listCfg = {view: 'unitlist', id: helpers.uid(app, 'action-list')} as webix.ui.unitlistConfig;
+// listCfg.uniteBy = (obj:IRefactorActionDef)=>
+// {
+//     return obj.group;
+// };
 
 uiModule.$ui = {view: 'template', scroll: 'y', template: refactoringDiv} as webix.ui.templateConfig;
 

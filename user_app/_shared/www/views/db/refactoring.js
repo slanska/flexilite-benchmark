@@ -6,7 +6,7 @@
         var v = factory(require, exports); if (v !== undefined) module.exports = v;
     }
     else if (typeof define === 'function' && define.amd) {
-        define(["require", "exports", 'lodash', '../../models/helpers'], factory);
+        define(["require", "exports", 'lodash'], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -16,7 +16,6 @@
      */
     var app = require('app');
     var _ = require('lodash');
-    var helpers = require('../../models/helpers');
     var uiModule = {};
     var items = [
         {
@@ -55,33 +54,6 @@
             ]
         }
     ];
-    // List of refactoring actions
-    // var items:IRefactorActionDef[] = [
-    //     {
-    //         group: 'Class',
-    //         title: 'Create class',
-    //         action: '',
-    //         icon: ''
-    //     },
-    //     {
-    //         group: 'Class',
-    //         title: 'Alter class',
-    //         action: '',
-    //         icon: ''
-    //     },
-    //     {
-    //         group: 'Class',
-    //         title: 'Drop class',
-    //         action: '',
-    //         icon: ''
-    //     },
-    //     {
-    //         group: 'Property',
-    //         title: 'Create property',
-    //         action: '',
-    //         icon: ''
-    //     }
-    // ];
     /*
     
      Properties to object
@@ -109,11 +81,12 @@
      Import from database
     
      */
-    var refactoringDiv = _.template("<div class=\"bs-component\">\n<% _.forEach(actionGroups, function(ag) {%>\n<div class=\"panel panel-primary col-lg-4 col-sm-12 col-md-6\"> \n<div class=\"panel-heading\">\n                  <h3 class=\"panel-title\"><%= ag.title %></h3>\n                </div>\n                <% _.forEach(ag.actions, function(a) {%>\n                <div class=\"list-group\">\n                <a onclick=\"FSMRouter.navigate('<%= a.action %>')\" class=\"list-group-item\">\n                  <h4 class=\"list-group-item-heading\"><%= a.title%></h4>\n                  <p class=\"list-group-item-text\"><%= a.description %></p>\n                </a>\n              \n              </div>\n                <% }); %>\n              </div>\n              <% }); %>\n              </div>\n              ")({ actionGroups: items });
-    var listCfg = { view: 'unitlist', id: helpers.uid(app, 'action-list') };
-    listCfg.uniteBy = function (obj) {
-        return obj.group;
-    };
+    var refactoringDiv = _.template("<div class=\"container\"> <div class=\"bs-component\">\n<% _.forEach(actionGroups, function(ag) {%>\n<div class=\"panel panel-primary col-lg-4 col-sm-12 col-md-6\"> \n<div class=\"panel-heading\">\n                  <h3 class=\"panel-title\"><%= ag.title %></h3>\n                </div>\n                <% _.forEach(ag.actions, function(a) {%>\n                <div class=\"list-group\">\n                <a onclick=\"FSMRouter.navigate('<%= a.action %>')\" class=\"list-group-item\">\n                  <h4 class=\"list-group-item-heading\"><%= a.title%></h4>\n                  <p class=\"list-group-item-text\"><%= a.description %></p>\n                </a>\n              \n              </div>\n                <% }); %>\n              </div>\n              <% }); %>\n              </div>\n              </div>\n              ")({ actionGroups: items });
+    // var listCfg = {view: 'unitlist', id: helpers.uid(app, 'action-list')} as webix.ui.unitlistConfig;
+    // listCfg.uniteBy = (obj:IRefactorActionDef)=>
+    // {
+    //     return obj.group;
+    // };
     uiModule.$ui = { view: 'template', scroll: 'y', template: refactoringDiv };
     return uiModule;
 });
