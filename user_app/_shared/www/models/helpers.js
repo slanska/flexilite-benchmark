@@ -17,6 +17,7 @@
      This approach: 1) provides uniqueness of IDs across all components, 2) creates well-known IDs (good for automated testing, for example)
      */
     function uid(app, id) {
+        // TODO
         return webix.uid();
         // var result = '';
         // if (app && app.path)

@@ -5,7 +5,7 @@
 import FSMRouter = require('fsmrouter');
 import WebixApp = require('libs/fsmrouter/lib/webixRouter');
 
-function switchTab(tabID?:string):FSMCallback
+function switchTab(tabControlID?:string, tabPageID?:string):FSMCallback
 {
     var result = (req:fsmRequest, next?:FSMCallback):any=>
     {
@@ -24,20 +24,20 @@ tableRoute.add('design', switchTab());
 var refactRoute = tableRoute.add('refactoring', switchTab());
 tableRoute.add('data/:tableName', switchTab());
 
-tableRoute.add({pattern: 'createClass', name: '../db/refactor/createClass'});
-tableRoute.add({pattern: 'alterClass', name: '../db/refactor/alterClass'});
-tableRoute.add({pattern: 'dropClass', name: '../db/refactor/dropClass'});
-tableRoute.add({pattern: 'createProp', name: '../db/refactor/createProp'});
-tableRoute.add({pattern: 'alterProp', name: '../db/refactor/alterProp'});
-tableRoute.add({pattern: 'dropProp', name: '../db/refactor/dropProp'});
-tableRoute.add({pattern: 'propToObj', name: '../db/refactor/propToObj'});
-tableRoute.add({pattern: 'splitProp', name: '../db/refactor/splitProp'});
-tableRoute.add({pattern: 'mergeProp', name: '../db/refactor/mergeProp'});
-tableRoute.add({pattern: 'objToProps', name: '../db/refactor/objToProps'});
-tableRoute.add({pattern: 'changeClass', name: '../db/refactor/changeClass'});
-tableRoute.add({pattern: 'removeDups', name: '../db/refactor/removeDups'});
-tableRoute.add({pattern: 'structMerge', name: '../db/refactor/structMerge'});
-tableRoute.add({pattern: 'importData', name: '../db/refactor/importData'});
+dataRoute.add({pattern: 'createClass', name: '../db/refactor/createClass'});
+dataRoute.add({pattern: 'alterClass', name: '../db/refactor/alterClass'});
+dataRoute.add({pattern: 'dropClass', name: '../db/refactor/dropClass'});
+dataRoute.add({pattern: 'createProp', name: '../db/refactor/createProp'});
+dataRoute.add({pattern: 'alterProp', name: '../db/refactor/alterProp'});
+dataRoute.add({pattern: 'dropProp', name: '../db/refactor/dropProp'});
+dataRoute.add({pattern: 'propToObj', name: '../db/refactor/propToObj'});
+dataRoute.add({pattern: 'splitProp', name: '../db/refactor/splitProp'});
+dataRoute.add({pattern: 'mergeProp', name: '../db/refactor/mergeProp'});
+dataRoute.add({pattern: 'objToProps', name: '../db/refactor/objToProps'});
+dataRoute.add({pattern: 'changeClass', name: '../db/refactor/changeClass'});
+dataRoute.add({pattern: 'removeDups', name: '../db/refactor/removeDups'});
+dataRoute.add({pattern: 'structMerge', name: '../db/refactor/structMerge'});
+dataRoute.add({pattern: 'importData', name: '../db/refactor/importData'});
 
 // TODO ???
 export = FSMRouter;

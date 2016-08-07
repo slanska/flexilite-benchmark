@@ -6,8 +6,8 @@
 
 
 // TODO Temp
-import helpers = require('../../models/helpers');
-var app = require('../../app');
+import helpers = require('../../../models/helpers');
+var app = require('../../../app');
 
 /*
  Webix Jet module. Create database.

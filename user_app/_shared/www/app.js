@@ -3,6 +3,7 @@
  */
 
 require.config({
+
     // baseUrl: "",
     paths: {
         "lodash": "libs/lodash/lodash",
@@ -15,15 +16,17 @@ require.config({
         "fsmrouter": "libs/fsmrouter/lib/index",
         "promiz": "libs/promiz/promiz"
     },
-    waitSeconds: 15
+    waitSeconds: 150 // TODO 15
 });
 
 define([
         'qs',
         'fsmrouter',
-        'promiz'],
-    (qs, FSMRouter, Promise)=>
+        'promiz',
+        'lodash'],
+    (qs, FSMRouter, Promise, _)=>
     {
+        
         require(['libs/fsmrouter/lib/webixRouter', "./routes"], (app, routes) =>
         {
             // For mobile devices
